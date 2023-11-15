@@ -1,15 +1,15 @@
-Building a Kubernetes 1.27 Cluster with kubeadm   
+## Building a Kubernetes 1.27 Cluster with kubeadm   
    
-Install Packages   
+### Install Packages   
    
 1. Log in to the control plane node.   
 Note: The following steps must be performed on all three nodes.   
    
 2. Create the configuration file for containerd:   
-cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf   
+```cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf   
 overlay   
 br_netfilter   
-EOF   
+EOF``` 
    
 3. Load the modules:   
 sudo modprobe overlay   

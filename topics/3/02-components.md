@@ -4,7 +4,7 @@ Pods are the smallest deployable units of computing that you can create and mana
 A Pod is a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers   
    
 simple-pod.yaml:   
-   
+```yaml   
 apiVersion: v1   
 kind: Pod   
 metadata:   
@@ -15,7 +15,8 @@ spec:
     image: nginx:1.14.2   
     ports:   
     - containerPort: 80   
-   
+```
+
 To create the Pod shown above, run the following command:   
 kubectl apply -f simple-pod.yaml   
    

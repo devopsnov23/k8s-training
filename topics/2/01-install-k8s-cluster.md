@@ -48,8 +48,10 @@ sudo containerd config default | sudo tee /etc/containerd/config.toml
 ```
 
 10. Restart containerd to ensure the new configuration file is used:   
+```yaml
 sudo systemctl restart containerd   
-   
+```
+
 11. Verify that containerd is running:   
 ```yaml
 sudo systemctl status containerd   

@@ -3,13 +3,13 @@
 ### Install Packages   
    
 1. Log in to the control plane node.   
-Note: The following steps must be performed on all three nodes.   
+**Note:** The following steps must be performed on all three nodes.   
    
 2. Create the configuration file for containerd:   
-```cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf   
+cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf   
 overlay   
 br_netfilter   
-EOF``` 
+EOF  
    
 3. Load the modules:   
 sudo modprobe overlay   
@@ -63,7 +63,7 @@ sudo apt-get install -y kubelet=1.27.0-00 kubeadm=1.27.0-00 kubectl=1.27.0-00
 18. Turn off automatic updates:   
 sudo apt-mark hold kubelet kubeadm kubectl   
    
-Log in to both worker nodes to perform the previous steps.   
+### Log in to both worker nodes to perform the previous steps.   
    
 1. Initialize the Kubernetes cluster on the control plane node using kubeadm:   
 sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.27.0   
@@ -76,14 +76,14 @@ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 3. Test access to the cluster:   
 kubectl get nodes   
    
-Install the Calico Network Add-On   
+### Install the Calico Network Add-On   
 1. On the control plane node, install Calico Networking:   
 kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.25.0/manifests/calico.yaml   
    
 2. Check the status of the control plane node:   
 kubectl get nodes   
    
-Join the Worker Nodes to the Cluster   
+### Join the Worker Nodes to the Cluster   
 1. In the control plane node, create the token and copy the kubeadm join command:   
 kubeadm token create --print-join-command   
    
@@ -96,4 +96,4 @@ sudo kubeadm join...
 kubectl get nodes   
    
    
-Note: You may have to wait a few moments to allow all nodes to become ready.   
+**Note: **You may have to wait a few moments to allow all nodes to become ready.   

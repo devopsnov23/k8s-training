@@ -96,4 +96,4 @@ sudo kubeadm join...
 kubectl get nodes   
    
    
-**Note: ** You may have to wait a few moments to allow all nodes to become ready.   
+**Note:** You may have to wait a few moments to allow all nodes to become ready.   

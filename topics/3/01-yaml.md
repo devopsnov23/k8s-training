@@ -20,10 +20,10 @@ sudo apt-get install yamllint
 A linter is an application that verifies the syntax of a file. The yamllint command is a great way to ensure your YAML is valid before you hand it over to whatever application you're writing YAML for (Ansible, for instance).   
    
 Use yamllint to validate your YAML file:   
-   
+```console   
 $ yamllint --strict shop.yaml || echo “Fail”   
 $   
-   
+``` 
 ### How data is stored in YAML   
 YAML can contain different kinds of data blocks:   
    

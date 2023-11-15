@@ -5,12 +5,12 @@ But this apparent simplicity can be deceptive.
 It's easy (and misleading) to think of YAML as just a list of related values, no more complex than a shopping list. There is a heading and some items beneath it. The items below the heading relate directly to it, right? Well, you can test this theory by writing a little bit of valid YAML.   
    
 Open a text editor and enter this text, retaining the dashes at the top of the file and the leading spaces for the last two items:   
-   
+```yaml
 ---   
 Store: Bakery   
   Sourdough loaf   
   Bagels   
-   
+```
 Save the file as example.yaml    
    
 If you don't already have yamllint installed, install it:   

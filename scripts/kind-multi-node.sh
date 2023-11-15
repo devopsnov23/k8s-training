@@ -5,7 +5,7 @@ sudo curl -Lo $CLI "https://kind.sigs.k8s.io/dl/v0.12.0/kind-$(uname)-amd64" && 
    
 kind delete cluster > /dev/null 2>&1    
    
-cat > 3node.yaml <<EOF   
+cat > 3node.yaml <<EOF
 kind: Cluster   
 apiVersion: kind.x-k8s.io/v1alpha4   
 nodes:   
@@ -17,7 +17,7 @@ nodes:
     hostPort: 30000   
   - containerPort: 32001   
     hostPort: 32001   
-EOF   
+EOF 
    
 kind create cluster --config 3node.yaml   
    

@@ -34,12 +34,15 @@ There's a third type called scalar, which is arbitrary data (encoded in Unicode)
 When constructing YAML, it might help to think of YAML as either a sequence of sequences or a map of maps, but not both.   
    
 ### Key Value Pair   
+```console
 Fruit: Apple    
 Vegatable: Carrot    
 Liquid: Water    
-Meat: Chicken    
+Meat: Chicken
+```  
    
 ### Array / List   
+```console
 Fruits   
 -  Orange    
 -  Apple    
@@ -48,9 +51,11 @@ Fruits
 Vegatables    
 - Carrot    
 - Beans    
-- Tomato   
+- Tomato
+```
    
-### Dictionary / Map    
+### Dictionary / Map   
+```console
 Banana:   
   Calories: 105    
   Fat: 0.4    
@@ -59,9 +64,11 @@ Banana:
 Grapes:   
   Calories: 85   
   Fat: 0.3   
-  Carbs: 16   
+  Carbs: 16
+```
    
 ### List of Dictionaries    
+```console
 Fruits:   
 -  Banana:   
      Calories: 105    
@@ -72,7 +79,7 @@ Fruits:
      Calories: 85   
      Fat: 0.3   
      Carbs: 16   
-   
+```   
    
 ### Dictionary vs List    
 Dictionary - To store different properties of a single object    

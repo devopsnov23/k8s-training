@@ -5,12 +5,12 @@ But this apparent simplicity can be deceptive.
 It's easy (and misleading) to think of YAML as just a list of related values, no more complex than a shopping list. There is a heading and some items beneath it. The items below the heading relate directly to it, right? Well, you can test this theory by writing a little bit of valid YAML.   
    
 Open a text editor and enter this text, retaining the dashes at the top of the file and the leading spaces for the last two items:   
-   
+```console
 ---   
 Store: Bakery   
   Sourdough loaf   
   Bagels   
-   
+```
 Save the file as example.yaml    
    
 If you don't already have yamllint installed, install it:   
@@ -20,10 +20,10 @@ sudo apt-get install yamllint
 A linter is an application that verifies the syntax of a file. The yamllint command is a great way to ensure your YAML is valid before you hand it over to whatever application you're writing YAML for (Ansible, for instance).   
    
 Use yamllint to validate your YAML file:   
-   
+```console   
 $ yamllint --strict shop.yaml || echo “Fail”   
 $   
-   
+``` 
 ### How data is stored in YAML   
 YAML can contain different kinds of data blocks:   
    
@@ -34,12 +34,15 @@ There's a third type called scalar, which is arbitrary data (encoded in Unicode)
 When constructing YAML, it might help to think of YAML as either a sequence of sequences or a map of maps, but not both.   
    
 ### Key Value Pair   
+```console
 Fruit: Apple    
 Vegatable: Carrot    
 Liquid: Water    
-Meat: Chicken    
+Meat: Chicken
+```  
    
 ### Array / List   
+```console
 Fruits   
 -  Orange    
 -  Apple    
@@ -48,9 +51,11 @@ Fruits
 Vegatables    
 - Carrot    
 - Beans    
-- Tomato   
+- Tomato
+```
    
-### Dictionary / Map    
+### Dictionary / Map   
+```console
 Banana:   
   Calories: 105    
   Fat: 0.4    
@@ -59,9 +64,11 @@ Banana:
 Grapes:   
   Calories: 85   
   Fat: 0.3   
-  Carbs: 16   
+  Carbs: 16
+```
    
 ### List of Dictionaries    
+```console
 Fruits:   
 -  Banana:   
      Calories: 105    
@@ -72,7 +79,7 @@ Fruits:
      Calories: 85   
      Fat: 0.3   
      Carbs: 16   
-   
+```   
    
 ### Dictionary vs List    
 Dictionary - To store different properties of a single object    

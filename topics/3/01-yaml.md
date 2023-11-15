@@ -1,4 +1,4 @@
-YAML Ain't a Markup Language (YAML), and as configuration formats go, it's easy on the eyes. It has an intuitive visual structure, and its logic is pretty simple: indented bullet points inherit properties of parent bullet points.   
+**YAML** Ain't a Markup Language (YAML), and as configuration formats go, it's easy on the eyes. It has an intuitive visual structure, and its logic is pretty simple: indented bullet points inherit properties of parent bullet points.   
    
 But this apparent simplicity can be deceptive.   
    

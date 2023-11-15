@@ -56,38 +56,38 @@ sudo systemctl status containerd
 ```
    
 12. Disable swap:
-13. ```yaml  
+```yaml  
 sudo swapoff -a  
 ```
    
-14. Install the dependency packages:
+13. Install the dependency packages:
 ```yaml
 sudo apt-get update && sudo apt-get install -y apt-transport-https curl
-``` 
+```
    
-15. Download and add the GPG key:
+14. Download and add the GPG key:
 ```yaml
 curl -s https://packages.cloud.google.com/apt/doc/apt-key.gpg | sudo apt-key add -
 ```
    
-17. Add Kubernetes to the repository list:   
+15. Add Kubernetes to the repository list:   
 ```yaml
 cat <<EOF | sudo tee /etc/apt/sources.list.d/kubernetes.list   
 deb https://apt.kubernetes.io/ kubernetes-xenial main   
 EOF
 ```  
    
-18. Update the package listings:   
+16. Update the package listings:   
 ```yaml
 sudo apt-get update
 ```  
    
-19. Install Kubernetes packages:   
+17. Install Kubernetes packages:   
 ```yaml
 sudo apt-get install -y kubelet=1.27.0-00 kubeadm=1.27.0-00 kubectl=1.27.0-00
 ```  
    
-20. Turn off automatic updates:   
+18. Turn off automatic updates:   
 ```yaml
 sudo apt-mark hold kubelet kubeadm kubectl
 ```

@@ -15,13 +15,18 @@ Containers represent the future of compute — alongside technologies like DevOp
 * Providing developers with consistent production environments, isolated from other applications and processes   
 * Simplifying and accelerating repetitive functions   
 * Facilitating hybrid and multicloud computing environments, since containers are able to run consistently anywhere   
-   
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/ab0b9e90-dd7a-4311-aa06-f4327f601b43)
+
+
 ### What is containerization?   
 Containerization — the act of creating a container — involves pulling out just the application/service you need to run, along with its dependencies and configuration, and abstracting it from the operating system and the underlying infrastructure. The resulting container image can then be run on any container platform. Multiple containers can be run on the same host and share the same OS with other containers, each running isolated processes within its own secured space. Because containers share the base OS, the result is being able to run each container using significantly fewer resources than if each was a separate virtual machine (VM).   
    
 ### What is container orchestration?   
 If you have just a handful of containers and two or three applications, container orchestration might not be necessary. But once the numbers grow, things become complicated. Container orchestration from Kubernetes makes it possible to deploy, scale and manage thousands of containerized applications, automatically.   
-   
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/2c468066-6f1a-45c7-809f-71e93b94970b)
+
 ### Benefits of Kubernetes container orchestration include:   
    
 * Service discovery and load balancing   

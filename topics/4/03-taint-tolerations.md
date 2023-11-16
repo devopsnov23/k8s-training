@@ -133,7 +133,7 @@ spec:
     key: node.kubernetes.io/unreachable
     operator: Exists
     tolerationSeconds: 300
-  - <b>effect: NoSchedule</b>
+  - effect: NoSchedule => TOLERATION ADDED
     key: app
     operator: Equal
     value: frontend

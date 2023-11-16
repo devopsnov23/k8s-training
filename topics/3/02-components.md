@@ -157,8 +157,7 @@ In Kubernetes, a Service is a method for exposing a network application that is 
    
 A key aim of Services in Kubernetes is that you don't need to modify your existing application to use an unfamiliar service discovery mechanism. You can run code in Pods, whether this is a code designed for a cloud-native world, or an older app you've containerized. You use a Service to make that set of Pods available on the network so that clients can interact with it.   
 
-![image](https://github.com/devopsnov23/k8s-training/assets/150913274/c9746cb6-93c4-4a52-a1f9-1782b3664261)
-
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/88775729-8590-453e-b07a-7262ba6a225f)
 
 ```console
 kubectl create deployment my-nginx --image=nginx   

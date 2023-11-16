@@ -2,7 +2,9 @@ Kubernetes Cluster mainly consists of Worker Machines called Nodes and a Control
    
 ## Kubernetes – Cluster Architecture   
 As can be seen in the diagram below, Kubernetes has a client-server architecture and has master and worker nodes, with the master being installed on a single Linux system and the nodes on many Linux workstations.    
-   
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/dcb1130e-4bf4-4d75-aa30-5c97109285bc)
+
 ## Kubernetes Components   
 Kubernetes is composed of a number of components, each of which plays a specific role in the overall system. These components can be divided into two categories:   
 nodes: Each Kubernetes cluster requires at least one worker node, which is a collection of worker machines that make up the nodes where our container will be deployed.   

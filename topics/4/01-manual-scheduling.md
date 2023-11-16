@@ -23,7 +23,13 @@ spec:
 
 Every POD has a field called nodeName that by default is not set. Kubernetes will create this field automatically.
 
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/d3709ab6-600b-4982-acf8-3195add99450)
+
+
 The scheduler goes through the all PODs and looks for those that don’t have this property set. Those are the candidates for the scheduling. It then identifies the right node for the POD by running the scheduling the algorithm. Once identified, it schedules the POD on the node by setting the nodeName property to the name of the node by creating the binding object.
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/9cbedb51-7f97-42f3-af39-6df47c36d487)
+
 
 ```yaml
 apiVersion: v1

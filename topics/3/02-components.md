@@ -2,6 +2,9 @@
 Pods are the smallest deployable units of computing that you can create and manage in Kubernetes.   
    
 A Pod is a group of one or more containers, with shared storage and network resources, and a specification for how to run the containers   
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/5af852cf-d63c-4bd3-a402-73dc2e948351)
+
    
 simple-pod.yaml:   
 ```yaml   
@@ -24,7 +27,10 @@ kubectl apply -f simple-pod.yaml
 A ReplicaSet's purpose is to maintain a stable set of replica Pods running at any given time. As such, it is often used to guarantee the availability of a specified number of identical Pods.   
    
 A ReplicaSet is defined with fields, including a selector that specifies how to identify Pods it can acquire, a number of replicas indicating how many Pods it should be maintaining, and a pod template specifying the data of new Pods it should create to meet the number of replicas criteria.   
-   
+
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/d2ad303b-7268-4ec2-b36a-f63732820f14)
+
 frontend.yaml:   
 ```console
 apiVersion: apps/v1   
@@ -63,7 +69,11 @@ kubectl get replicaset
 A Deployment provides declarative updates for Pods and ReplicaSets.   
    
 You describe a desired state in a Deployment, and the Deployment Controller changes the actual state to the desired state at a controlled rate. You can define Deployments to create new ReplicaSets, or to remove existing Deployments and adopt all their resources with new Deployments.   
-   
+
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/80c90c29-1514-4cec-b60b-a3671ba5ca55)
+
+
 nginx-deployment.yaml:   
 ```console
 apiVersion: apps/v1   
@@ -95,6 +105,9 @@ kubectl get deployments
 ``` 
 ## Daemonsets    
 A DaemonSet ensures that a copy of a Pod is running across a set of nodes in a Kubernetes cluster. DaemonSets are used to deploy system daemons such as log collectors and monitoring agents, which typically must run on every node. DaemonSets share similar functionality with ReplicaSets; both create Pods that are expected to be long-running services and ensure that the desired state and the observed state of the cluster match.   
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/63e87f9f-cdf0-4973-965b-ba878ce4d5cf)
+
    
 daemonset.yaml:   
 ```console 
@@ -144,6 +157,9 @@ In Kubernetes, a Service is a method for exposing a network application that is 
    
 A key aim of Services in Kubernetes is that you don't need to modify your existing application to use an unfamiliar service discovery mechanism. You can run code in Pods, whether this is a code designed for a cloud-native world, or an older app you've containerized. You use a Service to make that set of Pods available on the network so that clients can interact with it.   
 
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/c9746cb6-93c4-4a52-a1f9-1782b3664261)
+
+
 ```console
 kubectl create deployment my-nginx --image=nginx   
 ```   
@@ -177,6 +193,9 @@ curl http://$(uname -n):32001 | grep -C1 "successfully"
 In Kubernetes, namespaces provides a mechanism for isolating groups of resources within a single cluster. Names of resources need to be unique within a namespace, but not across namespaces.   
    
 Namespaces are intended for use in environments with many users spread across multiple teams, or projects.   
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/6af06a02-24b6-43f9-956f-ddd242500a3b)
+
 
 ```console
 kubectl get namespace   

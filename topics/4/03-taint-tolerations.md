@@ -97,7 +97,7 @@ nginx     1/1     Running   0          7m45s
 nginx-2   0/1     Pending   0          2m18s
 root@e2e-73-175:~# kubectl get events -n frontend
 LAST SEEN   TYPE      REASON             OBJECT        MESSAGE
-34s         Warning   **FailedScheduling   pod/nginx-2   0/3 nodes are available: 1 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 2 node(s) had taint {app: frontend}, that the pod didn't tolerate.**
+34s         Warning   **FailedScheduling**   pod/nginx-2   0/3 nodes are available: 1 node(s) had taint {node-role.kubernetes.io/master: }, that the pod didn't tolerate, 2 node(s) had taint {app: frontend}, that the pod didn't tolerate.
 9m37s       Normal    Scheduled          pod/nginx     Successfully assigned frontend/nginx to kind-worker2
 9m37s       Normal    Pulling            pod/nginx     Pulling image "nginx"
 9m28s       Normal    Pulled             pod/nginx     Successfully pulled image "nginx" in 8.642402422s
@@ -133,10 +133,10 @@ spec:
     key: node.kubernetes.io/unreachable
     operator: Exists
     tolerationSeconds: 300
-  - **effect: NoSchedule**
-    **key: app**
-    **operator: Equal**
-    **value: frontend**
+  - **effect:** NoSchedule
+    **key:** app
+    **operator:** Equal
+    **value:** frontend
   volumes:
   - name: kube-api-access-rl4wd
     projected:

@@ -111,3 +111,95 @@ Success!
 cloud_user_p_01431456@k8s:~$ 
 ```
 
+# Persistent Volume
+
+Create PV 
+```yaml
+cloud_user_p_01431456@k8s:~$ cat localdisk.yml 
+apiVersion: storage.k8s.io/v1 
+kind: StorageClass 
+metadata: 
+  name: localdisk 
+provisioner: kubernetes.io/no-provisioner
+allowVolumeExpansion: true
+cloud_user_p_01431456@k8s:~$ kubectl create -f localdisk.yml
+storageclass.storage.k8s.io/localdisk created
+cloud_user_p_01431456@k8s:~$ cat host-pv.yml 
+kind: PersistentVolume 
+apiVersion: v1 
+metadata: 
+   name: host-pv 
+spec: 
+   storageClassName: localdisk
+   persistentVolumeReclaimPolicy: Recycle 
+   capacity: 
+      storage: 1Gi 
+   accessModes: 
+      - ReadWriteOnce 
+   hostPath: 
+      path: /var/output
+cloud_user_p_01431456@k8s:~$ kubectl create -f host-pv.yml
+persistentvolume/host-pv created
+cloud_user_p_01431456@k8s:~$ kubectl get pv 
+NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS      CLAIM   STORAGECLASS   REASON   AGE
+host-pv   1Gi        RWO            Recycle          Available           localdisk               8s
+cloud_user_p_01431456@k8s:~$
+```
+
+Create PVC 
+```yaml
+cloud_user_p_01431456@k8s:~$ cat host-pvc.yml
+apiVersion: v1 
+kind: PersistentVolumeClaim 
+metadata: 
+   name: host-pvc 
+spec: 
+   storageClassName: localdisk 
+   accessModes: 
+      - ReadWriteOnce 
+   resources: 
+      requests: 
+         storage: 100Mi
+cloud_user_p_01431456@k8s:~$ kubectl create -f host-pvc.yml
+persistentvolumeclaim/host-pvc created
+cloud_user_p_01431456@k8s:~$ kubectl get pv
+NAME      CAPACITY   ACCESS MODES   RECLAIM POLICY   STATUS   CLAIM              STORAGECLASS   REASON   AGE
+host-pv   1Gi        RWO            Recycle          Bound    default/host-pvc   localdisk               88s
+cloud_user_p_01431456@k8s:~$ kubectl get pvc
+NAME       STATUS   VOLUME    CAPACITY   ACCESS MODES   STORAGECLASS   AGE
+host-pvc   Bound    host-pv   1Gi        RWO            localdisk      11s
+cloud_user_p_01431456@k8s:~$ 
+```
+
+Create a Pod That Uses a PersistentVolume for Storage
+```yaml
+cloud_user_p_01431456@k8s:~$ cat pv-pod.yml
+apiVersion: v1
+kind: Pod 
+metadata: 
+   name: pv-pod 
+spec: 
+   containers: 
+   - name: busybox 
+     image: busybox 
+     command: ['sh', '-c', 'while true; do echo Success! > /output/success.txt; sleep 5; done'] 
+     volumeMounts: 
+     - name: pv-storage 
+       mountPath: /output 
+   volumes:
+   - name: pv-storage
+     persistentVolumeClaim:
+       claimName: host-pvc
+
+cloud_user_p_01431456@k8s:~$ kubectl create -f pv-pod.yml
+pod/pv-pod created
+cloud_user_p_01431456@k8s:~$ kubectl get pods 
+NAME     READY   STATUS    RESTARTS   AGE
+pv-pod   1/1     Running   0          12s
+cloud_user_p_01431456@k8s:~$ kubectl get pods -o wide 
+NAME     READY   STATUS    RESTARTS   AGE   IP           NODE          NOMINATED NODE   READINESS GATES
+pv-pod   1/1     Running   0          29s   10.244.1.3   kind-worker   <none>           <none>
+cloud_user_p_01431456@k8s:~$ docker exec  kind-worker cat /var/output/success.txt
+Success!
+cloud_user_p_01431456@k8s:~$
+```

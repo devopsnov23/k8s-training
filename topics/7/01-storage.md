@@ -1,4 +1,6 @@
-## Storage 
+# Kubernetes Storage 
+
+### Container Storage
 
 ![image](https://github.com/devopsnov23/k8s-training/assets/150913274/a6e31865-b301-488b-914b-0fc66443ea1d)
 
@@ -111,7 +113,7 @@ Success!
 cloud_user_p_01431456@k8s:~$ 
 ```
 
-# Persistent Volume
+### Persistent Volume
 
 Create PV 
 ```yaml

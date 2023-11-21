@@ -12,11 +12,6 @@
 
 ![image](https://github.com/devopsnov23/k8s-training/assets/150913274/2f20b624-d217-49a4-8aa3-f2e340b78938)
 
-### Persistent Volume
-
-![image](https://github.com/devopsnov23/k8s-training/assets/150913274/0c1f0bd4-3b75-4c90-b6e8-f3ee6228b4ee)
-
-
 ### Volume Types 
 - NFS
 - Cloud Storage
@@ -114,6 +109,39 @@ cloud_user_p_01431456@k8s:~$
 ```
 
 ### Persistent Volume
+
+![image](https://github.com/devopsnov23/k8s-training/assets/150913274/0c1f0bd4-3b75-4c90-b6e8-f3ee6228b4ee)
+
+A persistent volume (PV) is a piece of storage in the Kubernetes cluster, while a persistent volume claim (PVC) is a request for storage.
+
+#### Capacity
+When creating a PV, you indicate its storage size in the Capacity attribute. In the example below, you are creating a PV of 1 gibibytes.
+
+#### Access Modes
+There are currently four access modes for PVs in Kubernetes:
+
+- ReadWriteOnce: This allows only a single node to access the volume in read-write mode. Furthermore, all pods in that single node can read and write to such volumes.
+- ReadWriteMany: Multiple nodes can read and write to the volume.
+- ReadOnlyMany: This means that the volume will be in a read-only mode and accessible by multiple nodes.
+- ReadWriteOncePod: Only a single pod can gain access to the volume.
+
+#### StorageClassName
+The storageClassName is the name of the storage class that will bind the PV to the user’s PVC. When a developer needs storage, they request it by creating a PVC.
+
+#### Provisioner
+The provisioner determines the volume plug-in used by the storageClass. Several plug-ins such as AWS EBS and GCE PD are available for different storage providers.
+
+#### Persistent Volume Claims
+A PersistentVolumeClaim (PVC) is a request for storage by a user. 
+
+#### Reclaiming
+Once you are done with a PV usage, you can free it up for other developers in the cluster to use by deleting the PVC object. The reclaim policy defined in the PV informs the cluster of what to do after Kubernetes unbinds it from a PVC. The retain policy attribute can have one of the following values: Retained, Recycled, or Deleted.
+
+#### Expanding Persistent Volumes Claims
+There might be an scenarios where your application might require a larger volume, especially when it already exceeds the capacity limit. To increase the storage, edit the PVC object and specify a larger capacity than you need.
+
+It is important to note that you shouldn’t directly edit the capacity of the PV, but rather the PVC.
+
 
 Create PV 
 ```yaml

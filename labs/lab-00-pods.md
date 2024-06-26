@@ -1,5 +1,5 @@
 
-## Kubernetes Fundamentals: Pods
+# Kubernetes Fundamentals: Pods
 
 There are about 55 standard resources in Kubernetes that you can control. The first and primary resource you will most likely encounter is a Pod. Pods provide context—such as access to the filesystem and the network on a hosting node—for one or more containers. Because Kubernetes is a container orchestration system, it makes sense that its most important and feature-rich resource is a Pod.
 

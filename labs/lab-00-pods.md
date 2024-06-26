@@ -181,7 +181,7 @@ kubectl cp <pod-name>:/captures/capture3.txt ./capture3.txt
 ```
 Other times you may need to copy files from your local machine into a container. Let’s say you want to copy $HOME/config.txt to a remote container. In this case, you can run:
 ```
-kubectl cp $HOME/config.txt kuard:/tmp/config.txt
+kubectl cp $HOME/config.txt kuard-<YOUR NAME>:/tmp/config.txt
 ```
 With the file copied, confirm it's now in the container:
 ```

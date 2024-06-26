@@ -137,9 +137,12 @@ kubectl apply -f kuard-pod-<YOUR NAME>.yaml
 ```
 When you run:
 ```
-kubectl port-forward kuard-<YOUR NAME> 8080:8080 &
+kubectl port-forward kuard-<YOUR NAME> <EPHEMERAL_PORT>:8080 &
 ```
 a secure tunnel is created from your local machine, through the Kubernetes master, to the instance of the Pod running on one of the worker nodes. The & symbol at the end runs the port forwarding as a background process so you can continue with foreground commands.
+
+Note: Replace <EPHEMERAL_PORT> with a random port number in the range of 49152-65535.  
+
 
 As long as the port-forward command is still running, you can access the Pod (in this case the kuard web interface) at:
 ```

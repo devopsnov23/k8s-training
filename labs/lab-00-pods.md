@@ -16,7 +16,7 @@ In this lab, you will learn how to:
 
 The simplest way to create a Pod is via the imperative kubectl run command. For example, to run our kuard server, you can use:
 ```
-kubectl run kuard --image=gcr.io/kuar-demo/kuard-amd64:blue
+kubectl run kuard-<YOUR NAME> --image=gcr.io/kuar-demo/kuard-amd64:blue
 ```
 You can see the status of this Pod by running:
 ```
@@ -24,7 +24,7 @@ kubectl get pods
 ```
 For now, you can delete this Pod by running:
 ```
-kubectl delete pods/kuard
+kubectl delete pods/kuard-<YOUR NAME>
 ```
 ### Creating a Pod Manifest
 
@@ -47,11 +47,11 @@ cat << 'EOF' > kuard-pod.yaml
 apiVersion: v1
 kind: Pod
 metadata:
-  name: kuard
+  name: kuard-<YOUR NAME>
 spec:
   containers:
     - image: gcr.io/kuar-demo/kuard-amd64:blue
-      name: kuard
+      name: kuard-<YOUR NAME>
       ports:
         - containerPort: 8080
           name: http
@@ -61,7 +61,7 @@ EOF
 
 The file is a Kubernetes YAML manifest that represents a Pod resource:
 ```
-less kuard-pod.yaml
+less kuard-pod-<YOUR NAME>.yaml
 ```
 It may initially seem more cumbersome to manage your application in this manner. However, this written record of desired state is the best practice in the long run, especially for large teams with many applications. These manifests help you follow the notion of Infrastructure as Code (IaC) and the practices around GitOps.
 
@@ -80,13 +80,13 @@ kubectl get pods
 For now, this should only be the single Pod that was created earlier:
 
 NAME       READY     STATUS    RESTARTS   AGE
-kuard      1/1       Running   0          44s
+kuard-<YOUR NAME>      1/1       Running   0          44s
 You can see the name of the Pod (kuard) that was declared in the YAML file. In addition to the number of ready containers (1/1), the output also shows the status, the number of times the Pod was restarted, and the age of the Pod.
 
 If you ran this command immediately after the Pod was created, you might see:
 
 NAME       READY     STATUS    RESTARTS   AGE
-kuard      0/1       Pending   0          1s
+kuard-<YOUR NAME>      0/1       Pending   0          1s
 The Pending state indicates that the Pod has been submitted but hasn’t been scheduled yet.
 
 If a more significant error occurs, such as an attempt to create a Pod with a container image that doesn’t exist, it will also be listed in the STATUS field.
@@ -105,18 +105,18 @@ Sometimes the single-line view is insufficient because it is too terse. Addition
 
 To find out more information about a Pod (or any Kubernetes object), you can use the kubectl describe command. For example, to describe the Pod previously created, you can run:
 ```
-kubectl describe pods kuard
+kubectl describe pods kuard-<YOUR NAME>
 ```
 This outputs a bunch of information about the Pod in different sections. At the top is basic information about the Pod.
 
 ### Deleting a Pod
 When it is time to delete a Pod, you can do so either by name:
 ```
-kubectl delete pods/kuard
+kubectl delete pods/kuard-<YOUR NAME>
 ```
 or by using the file that you used to create it:
 ```
-kubectl delete -f kuard-pod.yaml
+kubectl delete -f kuard-pod-<YOUR NAME>.yaml
 ```
 When a Pod is deleted, it is not immediately killed. Instead, if you run:
 ```
@@ -133,11 +133,11 @@ Now that your Pod is running, you’re going to want to access it for a variety 
 Using Port Forwarding
 To achieve this, you can use the port-forwarding support built into the Kubernetes API and command-line tools. Let's restart the kuard Pod:
 ```
-kubectl apply -f kuard-pod.yaml
+kubectl apply -f kuard-pod-<YOUR NAME>.yaml
 ```
 When you run:
 ```
-kubectl port-forward kuard 8080:8080 &
+kubectl port-forward kuard-<YOUR NAME> 8080:8080 &
 ```
 a secure tunnel is created from your local machine, through the Kubernetes master, to the instance of the Pod running on one of the worker nodes. The & symbol at the end runs the port forwarding as a background process so you can continue with foreground commands.
 
@@ -149,7 +149,7 @@ curl http://localhost:8080
 ### Getting More Info with Logs
 When your application needs debugging, it’s helpful to be able to dig deeper than describe to understand what the application is doing. Kubernetes provides two commands for debugging running containers. The kubectl logs command downloads the current logs from the running instance:
 ```
-kubectl logs kuard
+kubectl logs kuard-<YOUR NAME>
 ```
 Adding the -f flag will cause you to continuously stream logs.
 
@@ -160,11 +160,11 @@ While using kubectl logs is useful for occasional debugging of containers in pro
 ### Running Commands in Your Container with exec
 Sometimes logs are insufficient, and to truly determine what’s going on, you need to execute commands in the context of the container itself. To do this, you can use:
 ```
-kubectl exec kuard -- date; ll /
+kubectl exec kuard-<YOUR NAME> -- date; ll /
 ```
 You can also get an interactive session by adding the -it flags:
 ```
-kubectl exec -it kuard -- sh
+kubectl exec -it kuard-<YOUR NAME> -- sh
 ```
 Notice the prompt changed, as you are now inside a shell in the container in the Pod. Not all containers may have a shell available. To exit the shell, type 
 ```
@@ -182,7 +182,7 @@ kubectl cp $HOME/config.txt kuard:/tmp/config.txt
 ```
 With the file copied, confirm it's now in the container:
 ```
-kubectl exec kuard -- ls -ls /tmp
+kubectl exec kuard-<YOUR NAME> -- ls -ls /tmp
 ```
 Generally speaking, copying files into a container is an antipattern. You really should treat the contents of a container as immutable. But occasionally it’s the most immediate way to stop the bleeding and restore your service to health, since it is quicker than building, pushing, and rolling out a new image. Once you stop the bleeding, however, it is critically important that you immediately go and do the image build and rollout, or you are guaranteed to forget the local change that you made to your container and overwrite it in the subsequent regularly scheduled rollout.
 
@@ -199,12 +199,12 @@ Log into the container.
 Delete the Pod and namespace.
 
 ## Creating a Namespace
-Many problems in the exam need to be solved in a specific namespace. Namespaces are intended for use in environments with many users spread across multiple teams, or projects as a means to separate Kubernetes resources. You'll start by creating a new namespace with the name business.
+Many problems in the exam need to be solved in a specific namespace. Namespaces are intended for use in environments with many users spread across multiple teams, or projects as a means to separate Kubernetes resources. You'll start by creating a new namespace with the name business-<YOUR NAME>.
 
 ## Imperative Namespace Creation
 To create a new namespace, run the create namespace command. Remember that you can also use the create ns short form to save some typing.
 ```
-kubectl create namespace business
+kubectl create namespace business-<YOUR NAME>
 ```
 
 ### Viewing Namespaces
@@ -222,21 +222,21 @@ A Pod is the Kubernetes resource that allows us to run an application in a conta
 ### Imperative Pod Creation
 The Pod you are about to create should have the name mypod, use the image nginx:2.3.5, and expose the container port 80. You should make sure to put the Pod into the namespace business. The run command is a fast and convenient way to create a new Pod because you don't have to edit any YAML definition.
 ```
-kubectl run mypod --image=nginx:2.3.5 --restart=Never --port=80 --namespace=business
+kubectl run mypod-<YOUR NAME> --image=nginx:2.3.5 --restart=Never --port=80 --namespace=business-<YOUR NAME>
 ```
 After running the command, the console output should indicate that the Pod was created.
 
 ### Viewing Pods
 Make sure that the Pod runs without issues by listing all Pods in the namespace. The command below uses the short form -n to indicate the namespace you are querying.
 ```
-kubectl get pod -n business
+kubectl get pod -n business-<YOUR NAME>
 ```
 The list of Pods renders the current status of each Pod available in the namespace. Upon further inspection, you will notice that the status is ErrImagePull or ImagePullBackOff. This status means that the image couldn't be resolved or downloaded from the container registry.
 
 ### Describing the Pod
 The list of events can give you deeper insight. Use the describe pod command for more information.
 ```
-kubectl describe pod -n business
+kubectl describe pod -n business-<YOUR NAME>
 ```
 At the bottom of the terminal output, you will find the message Error response from daemon: manifest for nginx:2.3.5 not found. Open a browser and try to find the image for the specified tag on Docker Hub. Apparently, the tag hasn't been published. In the next step, you will ensure a successful startup of the Pod by setting a different, existent tag.
 
@@ -247,12 +247,12 @@ Go ahead and edit the existing Pod. For now, we just want to set a different ima
 ### Setting a Different Image
 The kubectl executable provides a specific command for this: set image. The command works on a specific label. In our case, the name of the Pod is mypod and the label as well. The value for the label should be the new tag for the image. Let's set it to nginx, which implies that we are using the latest tag.
 ```
-kubectl set image pod mypod mypod=nginx --namespace=business
+kubectl set image pod mypod-<YOUR NAME> mypod=nginx --namespace=business-<YOUR NAME>
 ```
 Checking the Pod Status
 After setting an image that does exist, the Pod should render the status Running. Give it some time to allow Kubernetes to restart the container.
 ```
-kubectl get pod -n business
+kubectl get pod -n business-<YOUR NAME>
 ```
 Awesome, you fixed the underlying issue that prevented the Pod from starting up properly. Next, you will log into the container and inspect the Pod even further by rendering more details.
 
@@ -263,7 +263,7 @@ Congratulations, the Pod is up and running. In this step, you will further inter
 ### Shelling into the Container
 You can shell into a Pod using the exec command to inspect the application runtime environment. Execute the following command to log into the Pod mypod:
 ```
-kubectl exec mypod -it --namespace=business  -- /bin/sh
+kubectl exec mypod-<YOUR NAME> -it --namespace=business-<YOUR NAME>  -- /bin/sh
 ```
 After running the command, you can see that the terminal prompt changed. The pound sign (#) signifies that you are now operating inside of the Pod's container.
 
@@ -278,11 +278,11 @@ exit
 ### Sending a Request to Nginx Running in Container
 Ngnix is a proxy web server that we have running inside of the Pod. Let's call the service to ensure it's running properly. Retrieve the IP address of the Pod with the -o wide command-line option. You can find the information under the column labeled IP.
 ```
-kubectl get pods -o wide -n business
+kubectl get pods -o wide -n business-<YOUR NAME>
 ```
 This IP address is only accessible from within the Kubernetes cluster. To make a request to nginx, we'll create a temporary Pod running inside of the same node. By using the --rm command-line option, we tell Kubernetes to delete the Pod after exiting the container. The Pod uses the image busybox.
 ```
-kubectl run busybox --image=busybox --rm -it --restart=Never -n business -- /bin/sh
+kubectl run busybox --image=busybox --rm -it --restart=Never -n business-<YOUR NAME> -- /bin/sh
 ```
 From within the container, run the command wget -O- <ip>:80. Remember to use the IP address from the Pod running nginx. You should see the HTML output of the response rendered in the terminal.
 
@@ -293,7 +293,7 @@ exit
 Accessing Pod Logs
 You can access the log files of the Pod with logs command. The following command renders a line for each time you send a HTTP request to nginx.
 ```
-kubectl logs mypod -n business
+kubectl logs mypod-<YOUR NAME> -n business-<YOUR NAME>
 ```
 We're all done. In the next step, we'll simply clean up the Kubernetes resources.
 
@@ -302,11 +302,11 @@ We're all done. In the next step, we'll simply clean up the Kubernetes resources
 
 It's time to clean up the Kubernetes resources you created in this lab. First, run the delete command for the Pod. Remember to provide the namespace.
 ```
-kubectl delete pod mypod --namespace=business
+kubectl delete pod mypod-<YOUR NAME> --namespace=business-<YOUR NAME>
 ```
 Next, run a similar command to delete the namespace.
 ```
-kubectl delete namespace business
+kubectl delete namespace business-<YOUR NAME>
 ```
 Kubernetes tries to gracefully delete the resources, which can sometimes take a couple of seconds. You can speed up the process by providing the command-line option --grace-period=0 --force. Those command-line options may come in handy if you do not want to waste precious seconds on Kubernetes' deletion process.
 

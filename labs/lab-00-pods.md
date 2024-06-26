@@ -1,6 +1,6 @@
-*******************************
-Kubernetes Fundamentals: Pods
-*******************************
+
+## Kubernetes Fundamentals: Pods
+
 There are about 55 standard resources in Kubernetes that you can control. The first and primary resource you will most likely encounter is a Pod. Pods provide context—such as access to the filesystem and the network on a hosting node—for one or more containers. Because Kubernetes is a container orchestration system, it makes sense that its most important and feature-rich resource is a Pod.
 
 This lab introduces you to Pods and explores some important Pod usage techniques and features.
@@ -12,13 +12,12 @@ In this lab, you will learn how to:
     ☐ Access the network and filesystem context of a Pod
     ☐ Fix some common problems with starting a Pod
 
-Creating a Pod
-==============
+### Creating a Pod
 
 The simplest way to create a Pod is via the imperative kubectl run command. For example, to run our kuard server, you can use:
-
+```
 kubectl run kuard --image=gcr.io/kuar-demo/kuard-amd64:blue
-
+```
 You can see the status of this Pod by running:
 
 kubectl get pods

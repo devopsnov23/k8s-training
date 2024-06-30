@@ -58,6 +58,8 @@ spec:
   - first-pool
 EOF
 
+sleep 60
+
 kubectl apply -f metal.yaml
 
 kubectl get nodes -o wide

@@ -14,7 +14,7 @@ spec:
   containers:
     - name: nginx
       image: nginx
-      ports
+      ports:
         - containerPort: 8080
   nodeName: node02
 $
